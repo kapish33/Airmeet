@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { getTodoError, getTodoLoading, getTodoSuccess } from "../store/actions";
+import "./Todos.css";
 
 export const Todos = () => {
   const [page, setPage] = useState(0);
   const [lastPage, setLastPage] = useState(0);
+  const [mid, setid] = useState(0);
 
   const { loading, todos, error } = useSelector(
     (state) => ({
@@ -24,7 +26,7 @@ export const Todos = () => {
 
   useEffect(() => {
     getTodos();
-  }, [page]);
+  }, [page, mid]);
 
   async function getTodos() {
     try {
@@ -38,6 +40,20 @@ export const Todos = () => {
       dispatch(getTodoError());
     }
   }
+  const handelHighLight = (id) => {
+    var requestOptions = {
+      method: "PATCH",
+      redirect: "follow",
+    };
+
+    fetch(`https://bikeapis.herokuapp.com/airmeets/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        setid(mid + 1);
+      })
+      .catch((error) => console.log("error", error));
+  };
 
   return loading ? (
     <div>Loading...</div>
@@ -62,8 +78,13 @@ export const Todos = () => {
         Next Page
       </button>
       {todos.map((e) => (
-        <div>
-          {e.Description} - {e.status ? "Done" : "Not Done"}
+        <div
+          onClick={() => {
+            handelHighLight(e._id);
+          }}
+          className={e.Highlight ? "makeHighlight" : "makeNonHighlight"}
+        >
+          {e.Description}
         </div>
       ))}
     </div>
