@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getTodoError, getTodoLoading, getTodoSuccess } from "../store/actions";
 import "./Todos.css";
 
 export const Todos = () => {
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [lastPage, setLastPage] = useState(0);
   const [mid, setid] = useState(0);
@@ -60,7 +62,7 @@ export const Todos = () => {
   ) : error ? (
     <div>Something went wrong</div>
   ) : (
-    <div>
+    <div className="upperClass">
       <button
         disabled={page < 1}
         onClick={() => {
@@ -77,16 +79,42 @@ export const Todos = () => {
       >
         Next Page
       </button>
-      {todos.map((e) => (
-        <div
-          onClick={() => {
-            handelHighLight(e._id);
-          }}
-          className={e.Highlight ? "makeHighlight" : "makeNonHighlight"}
-        >
-          {e.Description}
-        </div>
-      ))}
+      <span
+        className="highlightedNav"
+        onClick={() => {
+          navigate("/highlighted");
+        }}
+      >
+        Highlighted Items
+      </span>
+      <div className="display">
+        {todos.map((e) => (
+          <div
+            key={e._id}
+            onClick={() => {
+              handelHighLight(e._id);
+            }}
+            className={
+              e.Highlight ? "makeHighlight common" : "makeNonHighlight common"
+            }
+          >
+            <img src={e.Image} alt="" />
+            ClickMe To Chekcked
+            <input
+              style={{
+                backgroundColor: e.Highlight ? "red" : "green",
+              }}
+              type="checkbox"
+              checked={e.Highlight}
+              name="checkME"
+              id="checkME"
+            />
+            <br />
+            <br />
+            {e.Description}{" "}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

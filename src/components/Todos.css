@@ -1,6 +1,91 @@
 .makeHighlight {
-  background-color: #953030;
+  background-color: #222831;
+  color: #eeeeee;
+  animation: jumpY 1s infinite ease-in-out;
+}
+@keyframes jumpY {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .makeNonHighlight {
+  background-color: rgb(255, 255, 255);
+}
+.common {
+  font-size: large;
+  border: 1px solid rgb(206, 111, 111);
+  width: 200px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #000;
+}
+.common > img {
+  width: 200px;
+}
+.display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+input[type="checkbox"] {
+  appearance: none;
   background-color: #fff;
+  margin: 3px;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  border-radius: 12px;
+  animation: checkbox-animation 0.5s linear infinite;
+}
+@keyframes checkbox-animation {
+  0% {
+    transform: translateY(-0.075em);
+  }
+  50% {
+    transform: translateY(0.075em);
+  }
+  100% {
+    transform: translateY(-0.075em);
+  }
+}
+button {
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 10px;
+  font-size: large;
+}
+button:hover {
+  background-color: #000;
+  color: #fff;
+}
+.highlightedNav {
+  background-color: #222831;
+  color: #eeeeee;
+  padding: 12px;
+  border-radius: 12px;
+  animation: colorChange 1s infinite ease-in-out;
+}
+@keyframes colorChange {
+  0% {
+    background-color: #222831;
+  }
+  50% {
+    background-color: #eeeeee;
+  }
+  100% {
+    background-color: #222831;
+  }
 }
