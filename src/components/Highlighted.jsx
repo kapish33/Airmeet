@@ -5,11 +5,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { CircularProgress } from "@mui/material";
 
 const Highlighted = () => {
+  const dataFromLocalStorage = JSON.parse(localStorage.getItem("data"));
   const [array, setArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [mid, setMid] = React.useState(0);
   const navigate = useNavigate();
-  const [favCount, setFavCount] = React.useState(0);
+  const [favCount, setFavCount] = React.useState(dataFromLocalStorage.length);
 
   useEffect(() => {
     var requestOptions = {
