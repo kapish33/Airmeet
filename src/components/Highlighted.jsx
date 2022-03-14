@@ -64,19 +64,20 @@ const Highlighted = () => {
         <button
           className="myclass"
           onClick={() => {
-            navigate("/favourite");
-          }}
-        >
-          ❤️ Favourite
-        </button>
-        <button
-          className="myclass"
-          onClick={() => {
             navigate("/");
           }}
         >
           Home
         </button>
+        <button
+          className="myclass"
+          onClick={() => {
+            navigate("/favourite");
+          }}
+        >
+          ❤️ Favourite
+        </button>
+
         <span>{favCount}</span>
         <div className="display">
           {array.map((e) => (
@@ -109,11 +110,31 @@ const Highlighted = () => {
                   let data = localStorage.getItem("data");
                   if (data) {
                     data = JSON.parse(data);
+                    // if data already have this id then remove it
+                    let found = false;
+                    for (let i = 0; i < data.length; i++) {
+                      if (data[i]._id === e._id) {
+                        // remove it
+                        data.splice(i, 1);
+                        // put it back to local storage
+                        localStorage.setItem("data", JSON.stringify(data));
+                        if (favCount !== 0) {
+                          setFavCount(favCount - 1);
+                        }
+                        found = true;
+                        console.log("found");
+                        break;
+                      }
+                    }
 
-                    data.push(e);
-                    localStorage.setItem("data", JSON.stringify(data));
-
-                    setFavCount(favCount + 1);
+                    if (!found) {
+                      data.push(e);
+                      localStorage.setItem("data", JSON.stringify(data));
+                      if (favCount === 0) {
+                        setFavCount(favCount + 1);
+                      }
+                      setFavCount(favCount + 1);
+                    }
                   }
                   // if not exist then set it as array
                   else {

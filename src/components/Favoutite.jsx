@@ -43,7 +43,7 @@ const Favoutite = () => {
             ❤️
             <br />
             <br />
-            {e.Description}{" "}
+            {e.Description} <button>Remove Element</button>
           </div>
         ))}
       </div>
